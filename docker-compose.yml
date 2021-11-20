@@ -25,3 +25,8 @@ services:
       - "nginx-proxy"
     environment:
       - DEFAULT_EMAIL=bymavc@gmail.com
+
+volumes:
+  certs:
+  vhost:
+  html:
