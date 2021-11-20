@@ -2,21 +2,26 @@ version: "2"
 
 services:
   nginx-proxy:
+    image: nginxproxy/nginx-proxy
+    container_name: nginx-proxy
     restart: always
-    image: jwilder/nginx-proxy
     ports:
       - "80:80"
       - "443:443"
     volumes:
-      - "/etc/nginx/vhost.d"
-      - "/usr/share/nginx/html"
+      - "certs:/etc/nginx/certs"
+      - "vhost:/etc/nginx/vhost.d"
+      - "html:/usr/share/nginx/html"
       - "/var/run/docker.sock:/tmp/docker.sock:ro"
-      - "/etc/nginx/certs"
 
-  letsencrypt-nginx-proxy-companion:
+  nginx-proxy-acme:
+    image: nginxproxy/acme-companion
+    container_name: nginx-proxy-acme
     restart: always
-    image: jrcs/letsencrypt-nginx-proxy-companion
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "acme:/etc/acme.sh"
     volumes_from:
       - "nginx-proxy"
+    environment:
+      - DEFAULT_EMAIL=bymavc@gmail.com
