@@ -32,6 +32,6 @@ volumes:
   html:
   acme:
 
-network:
+networks:
   moaito-network:
     name: moaito_network
