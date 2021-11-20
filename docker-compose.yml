@@ -5,6 +5,8 @@ services:
     image: nginxproxy/nginx-proxy
     container_name: nginx-proxy
     restart: always
+    networks:
+      - moaito_network
     ports:
       - "80:80"
       - "443:443"
@@ -18,6 +20,8 @@ services:
     image: nginxproxy/acme-companion
     container_name: nginx-proxy-acme
     restart: always
+    networks:
+      - moaito_network
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       - "acme:/etc/acme.sh"
@@ -33,5 +37,5 @@ volumes:
   acme:
 
 networks:
-  moaito-network:
+  moaito_network:
     name: moaito_network
