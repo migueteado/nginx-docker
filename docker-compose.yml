@@ -31,3 +31,7 @@ volumes:
   vhost:
   html:
   acme:
+
+network:
+  moaito-network:
+    name: moaito_network
